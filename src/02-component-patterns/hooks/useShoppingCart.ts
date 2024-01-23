@@ -14,21 +14,18 @@ export const useShoppingCart = () => {
     product: Product;
   }) => {
     setShoppingCart((oldShoppingCart) => {
-      const producInCart: ProductInCart = oldShoppingCart[product.id] || {
-        ...product,
-        count: 0,
-      };
-
-      if (Math.max(producInCart.count + count, 0) > 0) {
-        producInCart.count += count;
-        return {
-          ...oldShoppingCart,
-          [product.id]: producInCart,
-        };
+      if (count === 0) {
+        const { [product.id]: toDelete, ...rest } = oldShoppingCart;
+        return rest;
       }
-      // Borrar el producto del carrito si el count es 0
-      const { [product.id]: toDelete, ...rest } = oldShoppingCart;
-      return rest;
+
+      return {
+        ...oldShoppingCart,
+        [product.id]: {
+          ...product,
+          count,
+        },
+      };
     });
   };
 
