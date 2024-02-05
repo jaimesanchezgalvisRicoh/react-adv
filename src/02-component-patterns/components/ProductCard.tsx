@@ -15,7 +15,7 @@ const { Provider } = ProductContext;
 export interface Props {
   product: Product;
   children: (args: ProductCardHandlers) => JSX.Element;
-  className: string;
+  className?: string;
   style?: React.CSSProperties;
   onChange?: (args: onChangeArgs) => void;
   value?: number;
